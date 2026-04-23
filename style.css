@@ -1,3 +1,6 @@
+/* --------------------------------------------------
+   IMPOSTAZIONI GENERALI
+-------------------------------------------------- */
 body {
   margin: 0;
   overflow: hidden;
@@ -5,6 +8,22 @@ body {
   font-family: system-ui, sans-serif;
 }
 
+/* --------------------------------------------------
+   CANVAS THREE.JS (sempre visibile sotto la UI)
+-------------------------------------------------- */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 0;
+  display: block;
+}
+
+/* --------------------------------------------------
+   UI (pannello comandi)
+-------------------------------------------------- */
 .ui {
   position: absolute;
   top: 10px;
@@ -47,6 +66,9 @@ body {
   font-size: 13px;
 }
 
+/* --------------------------------------------------
+   BOTTONI
+-------------------------------------------------- */
 .buttons {
   margin-top: 10px;
   display: flex;
@@ -71,6 +93,9 @@ body {
   background: #d9ecff;
 }
 
+/* --------------------------------------------------
+   COLORE
+-------------------------------------------------- */
 .colorBox {
   margin-top: 10px;
   display: flex;
