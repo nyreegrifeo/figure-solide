@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #e6f3ff;
+  font-family: system-ui, sans-serif;
+}
+
+.ui {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 12px 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  z-index: 10;
+  max-width: 260px;
+}
+
+.ui h1 {
+  font-size: 17px;
+  margin: 0 0 8px;
+  font-weight: 600;
+  color: #003366;
+}
+
+.ui label {
+  font-size: 13px;
+  display: block;
+  margin-bottom: 4px;
+  color: #003366;
+}
+
+.ui select {
+  width: 100%;
+  font-size: 13px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #aac7dd;
+  background: #ffffff;
+  color: #003366;
+}
+
+.ui optgroup {
+  font-weight: bold;
+  color: #003366;
+  font-size: 13px;
+}
+
+.buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.buttons button,
+#resetViewBtn {
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: 1px solid #6699cc;
+  background: #ffffff;
+  color: #003366;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.buttons button:hover,
+#resetViewBtn:hover {
+  background: #d9ecff;
+}
+
+.colorBox {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

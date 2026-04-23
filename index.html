@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Figure piane e solidi</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Three.js -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+  <!-- OrbitControls (versione che funziona SEMPRE) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+  <div class="ui">
+    <h1>Figure piane → Solidi</h1>
+
+    <label for="shapeSelect">Scegli una figura:</label>
+    <select id="shapeSelect">
+      <optgroup label="Figure geometriche classiche">
+        <option value="cube">Quadrato → Cubo</option>
+        <option value="rectPrism">Rettangolo → Parallelepipedo</option>
+        <option value="cylinder">Cerchio → Cilindro</option>
+        <option value="pyramid">Triangolo → Piramide</option>
+        <option value="pentPrism">Pentagono → Prisma pentagonale</option>
+        <option value="hexPrism">Esagono → Prisma esagonale</option>
+        <option value="octPrism">Ottagono → Prisma ottagonale</option>
+        <option value="ellipseCyl">Ellisse → Cilindro ellittico</option>
+        <option value="rhombPrism">Rombo → Prisma rombico</option>
+        <option value="parallPrism">Parallelogramma → Prisma</option>
+        <option value="trapPrism">Trapezio → Prisma trapezoidale</option>
+        <option value="isoPyr">Triangolo isoscele → Piramide</option>
+        <option value="eqPyr">Triangolo equilatero → Piramide</option>
+        <option value="star5Prism">Stella 5 punte → Prisma</option>
+        <option value="crossPrism">Croce → Prisma</option>
+      </optgroup>
+
+      <optgroup label="Figure creative">
+        <option value="heart">Cuore → Solido</option>
+        <option value="flower">Fiore → Solido</option>
+        <option value="cloud">Nuvola → Solido</option>
+        <option value="arrow">Freccia → Prisma</option>
+        <option value="drop">Goccia → Solido</option>
+        <option value="shield">Scudo → Prisma</option>
+        <option value="leaf">Foglia → Solido</option>
+        <option value="star6Prism">Stella 6 punte → Prisma</option>
+        <option value="star8Prism">Stella 8 punte → Prisma</option>
+        <option value="irregHex">Esagono irregolare → Prisma</option>
+        <option value="oval">Ovale → Solido</option>
+        <option value="lens">Lente → Solido</option>
+        <option value="diamond">Diamante → Prisma</option>
+        <option value="crescent">Mezzaluna → Solido</option>
+        <option value="curvedArrow">Freccia curva → Solido</option>
+      </optgroup>
+    </select>
+
+    <div class="buttons">
+      <button id="replayBtn">Riproduci animazione</button>
+      <button id="stopRotBtn">Stop rotazione</button>
+      <button id="playRotBtn">Play rotazione</button>
+    </div>
+
+    <div class="colorBox">
+      <label for="colorPicker">Colore solido:</label>
+      <input type="color" id="colorPicker" value="#4da6ff">
+    </div>
+
+    <button id="resetViewBtn">Reset vista</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
