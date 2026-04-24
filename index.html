@@ -4,18 +4,13 @@
   <meta charset="UTF-8" />
   <title>Figure piane e solidi</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Three.js -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-
-  <!-- OrbitControls (versione che funziona SEMPRE) -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 </head>
 <body>
   <div class="ui">
     <h1>Figure piane → Solidi</h1>
-
     <label for="shapeSelect">Scegli una figura:</label>
+
     <select id="shapeSelect">
       <optgroup label="Figure geometriche classiche">
         <option value="cube">Quadrato → Cubo</option>
@@ -53,19 +48,6 @@
         <option value="curvedArrow">Freccia curva → Solido</option>
       </optgroup>
     </select>
-
-    <div class="buttons">
-      <button id="replayBtn">Riproduci animazione</button>
-      <button id="stopRotBtn">Stop rotazione</button>
-      <button id="playRotBtn">Play rotazione</button>
-    </div>
-
-    <div class="colorBox">
-      <label for="colorPicker">Colore solido:</label>
-      <input type="color" id="colorPicker" value="#4da6ff">
-    </div>
-
-    <button id="resetViewBtn">Reset vista</button>
   </div>
 
   <script src="script.js"></script>
