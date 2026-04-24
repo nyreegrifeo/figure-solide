@@ -1,29 +1,12 @@
-/* --------------------------------------------------
-   IMPOSTAZIONI GENERALI
--------------------------------------------------- */
+/* Sfondo generale */
 body {
   margin: 0;
   overflow: hidden;
   background: #e6f3ff;
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* --------------------------------------------------
-   CANVAS THREE.JS (sempre visibile sotto la UI)
--------------------------------------------------- */
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw !important;
-  height: 100vh !important;
-  z-index: 0;
-  display: block;
-}
-
-/* --------------------------------------------------
-   UI (pannello comandi)
--------------------------------------------------- */
+/* Box dell'interfaccia */
 .ui {
   position: absolute;
   top: 10px;
@@ -36,6 +19,7 @@ canvas {
   max-width: 260px;
 }
 
+/* Titolo */
 .ui h1 {
   font-size: 17px;
   margin: 0 0 8px;
@@ -43,6 +27,7 @@ canvas {
   color: #003366;
 }
 
+/* Etichetta */
 .ui label {
   font-size: 13px;
   display: block;
@@ -50,6 +35,7 @@ canvas {
   color: #003366;
 }
 
+/* Menu a tendina */
 .ui select {
   width: 100%;
   font-size: 13px;
@@ -60,45 +46,16 @@ canvas {
   color: #003366;
 }
 
+/* Gruppi del menu */
 .ui optgroup {
   font-weight: bold;
   color: #003366;
   font-size: 13px;
+  padding-top: 4px;
 }
 
-/* --------------------------------------------------
-   BOTTONI
--------------------------------------------------- */
-.buttons {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.buttons button,
-#resetViewBtn {
-  padding: 6px 10px;
-  font-size: 13px;
-  border-radius: 6px;
-  border: 1px solid #6699cc;
-  background: #ffffff;
+/* Opzioni */
+.ui option {
+  font-weight: normal;
   color: #003366;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.buttons button:hover,
-#resetViewBtn:hover {
-  background: #d9ecff;
-}
-
-/* --------------------------------------------------
-   COLORE
--------------------------------------------------- */
-.colorBox {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
 }
