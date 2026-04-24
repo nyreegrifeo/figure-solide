@@ -1,9 +1,6 @@
-let scene, camera, renderer;
-let mesh = null;        // solido 3D
-let flatShape = null;   // figura piana 2D
-let arrow = null;       // freccia didattica
-let animating = false;
+let scene, camera, renderer, mesh, material;
 let height = 0;
+let animating = true;
 
 function init() {
   scene = new THREE.Scene();
@@ -28,139 +25,199 @@ function init() {
   const ambient = new THREE.AmbientLight(0xffffff, 0.4);
   scene.add(ambient);
 
-  window.addEventListener("resize", () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+  material = new THREE.MeshPhongMaterial({ color: 0x4da6ff });
 
   createShape("cube");
   animate();
 }
 
-/* --------------------------------------------------
-   FIGURA PIANA 2D
--------------------------------------------------- */
-function createFlatShape(shape) {
-  const geometry = new THREE.ShapeGeometry(shape);
-  const material = new THREE.MeshBasicMaterial({
-    color: 0x003366,
-    side: THREE.DoubleSide
-  });
+function createShape(type) {
+  if (mesh) scene.remove(mesh);
 
-  const flat = new THREE.Mesh(geometry, material);
-  flat.rotation.x = -Math.PI / 2;
-  flat.position.y = 0;
+  height = 0;
+  animating = true;
 
-  return flat;
-}
+  let geometry;
 
-/* --------------------------------------------------
-   FRECCIA DIDATTICA
--------------------------------------------------- */
-function createArrow() {
-  const arrow = new THREE.ArrowHelper(
-    new THREE.Vector3(0, 1, 0),
-    new THREE.Vector3(0, 0.1, 0),
-    1,
-    0xff0000
-  );
-  return arrow;
-}
+  // -------------------------
+  // FIGURE GEOMETRICHE
+  // -------------------------
 
-/* --------------------------------------------------
-   SOLIDO ESTRUSO
--------------------------------------------------- */
-function createExtruded(shape) {
-  const geometry = new THREE.ExtrudeGeometry(shape, {
-    depth: 1,
-    bevelEnabled: false
-  });
+  if (type === "cube") geometry = new THREE.BoxGeometry(1, 1, 1);
 
-  const material = new THREE.MeshPhongMaterial({ color: 0x4da6ff });
+  if (type === "rectPrism") geometry = new THREE.BoxGeometry(1.5, 1, 0.7);
 
-  const mesh = new THREE.Mesh(geometry, material);
+  if (type === "cylinder") geometry = new THREE.CylinderGeometry(0.7, 0.7, 1, 48);
+
+  if (type === "pyramid") geometry = new THREE.ConeGeometry(0.8, 1, 4);
+
+  if (type === "pentPrism") geometry = new THREE.CylinderGeometry(0.8, 0.8, 1, 5);
+
+  if (type === "hexPrism") geometry = new THREE.CylinderGeometry(0.8, 0.8, 1, 6);
+
+  if (type === "octPrism") geometry = new THREE.CylinderGeometry(0.8, 0.8, 1, 8);
+
+  if (type === "ellipseCyl") {
+    geometry = new THREE.CylinderGeometry(0.7, 0.7, 1, 48);
+    geometry.scale(1.3, 1, 0.7);
+  }
+
+  if (type === "rhombPrism") {
+    geometry = new THREE.BoxGeometry(1.2, 1, 0.6);
+    geometry.rotateY(Math.PI / 4);
+  }
+
+  if (type === "parallPrism") geometry = new THREE.BoxGeometry(1.4, 1, 0.6);
+
+  if (type === "trapPrism") {
+    const s = new THREE.Shape();
+    s.moveTo(-0.6, 0);
+    s.lineTo(0.6, 0);
+    s.lineTo(0.3, 1);
+    s.lineTo(-0.3, 1);
+    s.closePath();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "isoPyr") geometry = new THREE.ConeGeometry(0.8, 1, 3);
+
+  if (type === "eqPyr") geometry = new THREE.ConeGeometry(0.8, 1, 3);
+
+  if (type === "star5Prism") {
+    const s = starShape(0.9, 0.4, 5);
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "crossPrism") {
+    const s = crossShape();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  // -------------------------
+  // FIGURE CREATIVE
+  // -------------------------
+
+  if (type === "heart") {
+    const s = heartShape();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "flower") {
+    const s = flowerShape();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "cloud") {
+    const s = cloudShape();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "arrow") {
+    const s = arrowShape();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "drop") {
+    const s = dropShape();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "shield") {
+    const s = shieldShape();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "leaf") {
+    const s = leafShape();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "star6Prism") {
+    const s = starShape(0.9, 0.4, 6);
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "star8Prism") {
+    const s = starShape(0.9, 0.4, 8);
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "irregHex") {
+    const s = new THREE.Shape();
+    s.moveTo(-0.8, 0);
+    s.lineTo(-0.4, -0.6);
+    s.lineTo(0.5, -0.7);
+    s.lineTo(0.9, 0);
+    s.lineTo(0.4, 0.8);
+    s.lineTo(-0.5, 0.6);
+    s.closePath();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "oval") {
+    const s = new THREE.Shape();
+    s.absellipse(0, 0, 0.9, 0.5, 0, Math.PI * 2);
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "lens") {
+    const s = lensShape();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "diamond") {
+    const s = new THREE.Shape();
+    s.moveTo(0, 1);
+    s.lineTo(0.7, 0);
+    s.lineTo(0, -1);
+    s.lineTo(-0.7, 0);
+    s.closePath();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "crescent") {
+    const s = crescentShape();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  if (type === "curvedArrow") {
+    const s = curvedArrowShape();
+    geometry = new THREE.ExtrudeGeometry(s, { depth: 1, bevelEnabled: false });
+  }
+
+  // -------------------------
+  // CREAZIONE MESH
+  // -------------------------
+
+  mesh = new THREE.Mesh(geometry, material);
   mesh.scale.y = 0.001;
   mesh.position.y = 0;
 
-  return mesh;
-}
-
-/* --------------------------------------------------
-   CREA LA SHAPE 2D IN BASE AL TIPO
--------------------------------------------------- */
-function getShapeByType(type) {
-  // GEOMETRICHE BASE
-  if (type === "cube") return new THREE.Shape().moveTo(-0.5, -0.5).lineTo(0.5, -0.5).lineTo(0.5, 0.5).lineTo(-0.5, 0.5).closePath();
-  if (type === "cylinder") return new THREE.Shape().absellipse(0, 0, 0.7, 0.7, 0, Math.PI * 2);
-  if (type === "pyramid") return new THREE.Shape().moveTo(0, 0.8).lineTo(0.8, -0.8).lineTo(-0.8, -0.8).closePath();
-
-  // TUTTE LE TUE FIGURE CREATIVE
-  if (type === "star5Prism") return starShape(0.9, 0.4, 5);
-  if (type === "star6Prism") return starShape(0.9, 0.4, 6);
-  if (type === "star8Prism") return starShape(0.9, 0.4, 8);
-  if (type === "crossPrism") return crossShape();
-  if (type === "heart") return heartShape();
-  if (type === "flower") return flowerShape();
-  if (type === "cloud") return cloudShape();
-  if (type === "arrow") return arrowShape();
-  if (type === "drop") return dropShape();
-  if (type === "shield") return shieldShape();
-  if (type === "leaf") return leafShape();
-  if (type === "lens") return lensShape();
-  if (type === "crescent") return crescentShape();
-  if (type === "curvedArrow") return curvedArrowShape();
-
-  // fallback
-  return new THREE.Shape();
-}
-
-/* --------------------------------------------------
-   CREAZIONE COMPLETA DELLA FIGURA (VERSIONE C)
--------------------------------------------------- */
-function createShape(type) {
-  if (mesh) scene.remove(mesh);
-  if (flatShape) scene.remove(flatShape);
-  if (arrow) scene.remove(arrow);
-
-  height = 0;
-  animating = false;
-
-  const shape = getShapeByType(type);
-
-  flatShape = createFlatShape(shape);
-  scene.add(flatShape);
-
-  arrow = createArrow();
-  scene.add(arrow);
-
-  mesh = createExtruded(shape);
   scene.add(mesh);
-
-  setTimeout(() => {
-    scene.remove(arrow);
-    animating = true;
-  }, 600);
 }
 
-/* --------------------------------------------------
-   ANIMAZIONE
--------------------------------------------------- */
 function animate() {
   requestAnimationFrame(animate);
 
   if (animating && height < 1) {
-    height += 0.003;
+    height += 0.003; // animazione lenta
     mesh.scale.y = height;
     mesh.position.y = height / 2;
+
+    if (height >= 1) animating = false;
+  }
+
+  if (!animating) {
+    mesh.rotation.x += 0.01;
+    mesh.rotation.y += 0.01;
   }
 
   renderer.render(scene, camera);
 }
 
-/* --------------------------------------------------
-   SHAPE HELPERS (tutte le tue funzioni)
--------------------------------------------------- */
+// --------------------------------------------------
+// SHAPE HELPERS
+// --------------------------------------------------
 
 function starShape(R, r, n) {
   const s = new THREE.Shape();
@@ -311,3 +368,4 @@ document.getElementById("shapeSelect").addEventListener("change", (e) => {
 });
 
 init();
+
